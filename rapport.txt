@@ -6,26 +6,26 @@ I) Stratégie Staking
   1) Staking des recompenses entre contrats
 
 	Contrat Binance Est. APY : 8.52% durée de 30 jours  
-		Solde au bout d'une année : 1102.5 ONE
+		Solde au bout d'une année : 1088.62 ONE
 	Contrat Binance Est. APY : 12.9% durée de 60 jours  
-		Solde au bout d'une année : 1182.14 ONE
+		Solde au bout d'une année : 1136.18 ONE
 	Contrat Binance Est. APY : 20.51% durée de 90 jours  
-		Solde au bout d'une année : 1341.11 ONE
+		Solde au bout d'une année : 1221.59 ONE
 
   2) 50% de staking des recompenses entre contrats
 
 	Contrat Binance Est. APY : 8.52% durée de 30 jours  
-		Solde au bout d'une année : 1096.56 ONE
+		Solde au bout d'une année : 1086.89 ONE
 	Contrat Binance Est. APY : 12.9% durée de 60 jours  
-		Solde au bout d'une année : 1164.42 ONE
+		Solde au bout d'une année : 1132.54 ONE
 	Contrat Binance Est. APY : 20.51% durée de 90 jours  
-		Solde au bout d'une année : 1293.71 ONE
+		Solde au bout d'une année : 1213.2 ONE
 
   3) Pas de staking des recompenses entre contrats
 
 	Contrat Binance Est. APY : 8.52% durée de 30 jours  
-		Solde au bout d'une année : 1090.97 ONE
+		Solde au bout d'une année : 1085.2 ONE
 	Contrat Binance Est. APY : 12.9% durée de 60 jours  
-		Solde au bout d'une année : 1148.34 ONE
+		Solde au bout d'une année : 1129.0 ONE
 	Contrat Binance Est. APY : 20.51% durée de 90 jours  
-		Solde au bout d'une année : 1252.69 ONE
+		Solde au bout d'une année : 1205.1 ONE

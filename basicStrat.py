@@ -18,28 +18,32 @@ binanceStaking = [[0.0852, 30], [0.129, 60], [0.2051, 90]]
 def totalAnnuelViaStaking(recompensePrct, dureeContrat, reStakeRecPrct):
     nbContratsAnnuel = nbJourAnnee / dureeContrat
     recompenseContratPrct = (dureeContrat * recompensePrct) / nbJourAnnee
+    print("Nb de contrats/an : ", nbContratsAnnuel)
 
     # Premier contrat
     soldeFinContrat = montantInitiale
     soldeNonStake = 0
     
     # Contrats suivants avec pourcentage de staking des recompenses (auto stake = 100%)
-    for i in range(math.trunc(nbContratsAnnuel) + 1):
+    for i in range(math.trunc(nbContratsAnnuel)):
         recompenseFinContrat = soldeFinContrat * recompenseContratPrct
         soldeFinContrat = soldeFinContrat + (recompenseFinContrat * reStakeRecPrct)
         soldeNonStake = soldeNonStake + (recompenseFinContrat * (1 - reStakeRecPrct))
-        print("Solde fincontrat 1 : ", soldeFinContrat)
+        print("Solde fincontrat 1 : ", soldeFinContrat + soldeNonStake)
     
     # Dernier morceau du contrat fin d'annee, abstraction le contrat n'est pas fini ! 
     jourRestants = (nbContratsAnnuel % 1) * dureeContrat
-    recompenseDernier = (jourRestants * recompensePrct) / nbJourAnnee
-    soldeFinContrat = soldeFinContrat + (recompenseFinContrat * reStakeRecPrct)
+    recompenseDernier = soldeFinContrat * ((jourRestants * recompensePrct) / nbJourAnnee)
+    soldeFinContrat = soldeFinContrat + (recompenseDernier * reStakeRecPrct)
     soldeNonStake = soldeNonStake + (recompenseDernier * (1 - reStakeRecPrct))
 
     soldeFinContrat = soldeFinContrat + soldeNonStake
     print("Dernier morceau : ", soldeFinContrat)
 
     return round(soldeFinContrat, 2)
+
+
+
 
 def rapportStaking(t):
     t.write("\n  1) Staking des recompenses entre contrats\n")
@@ -70,8 +74,6 @@ def genereRapport():
         f.close()
 
 def main():
-    ctrs = totalAnnuelViaStaking(binanceStaking[2][0], binanceStaking[2][1], 1)
-    print("Bite : ", ctrs)
     genereRapport()
     print("Rapport genere")
 
