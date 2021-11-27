@@ -1,31 +1,46 @@
 Montant initial : 1000 ONE
 
 
-I) Stratégie Staking
+I) Stratégie Staking (contrats 60 et 90 jours indispolibles sur Binance)
 
-  1) Staking des recompenses entre contrats
+  1) 100% de staking des recompenses entre contrats
 
 	Contrat Binance Est. APY : 8.52% durée de 30 jours  
-		Solde au bout d'une année : 1088.62 ONE
+		Solde au bout d'une année : 1088.62 ONE (rendement 8.86%)
 	Contrat Binance Est. APY : 12.9% durée de 60 jours  
-		Solde au bout d'une année : 1136.18 ONE
+		Solde au bout d'une année : 1136.18 ONE (rendement 13.62%)
 	Contrat Binance Est. APY : 20.51% durée de 90 jours  
-		Solde au bout d'une année : 1221.59 ONE
+		Solde au bout d'une année : 1221.58 ONE (rendement 22.16%)
 
   2) 50% de staking des recompenses entre contrats
 
 	Contrat Binance Est. APY : 8.52% durée de 30 jours  
-		Solde au bout d'une année : 1086.89 ONE
+		Solde au bout d'une année : 1086.89 ONE (rendement 8.69%)
 	Contrat Binance Est. APY : 12.9% durée de 60 jours  
-		Solde au bout d'une année : 1132.54 ONE
+		Solde au bout d'une année : 1132.54 ONE (rendement 13.25%)
 	Contrat Binance Est. APY : 20.51% durée de 90 jours  
-		Solde au bout d'une année : 1213.2 ONE
+		Solde au bout d'une année : 1213.2 ONE (rendement 21.32%)
 
   3) Pas de staking des recompenses entre contrats
 
 	Contrat Binance Est. APY : 8.52% durée de 30 jours  
-		Solde au bout d'une année : 1085.2 ONE
+		Solde au bout d'une année : 1085.2 ONE (rendement 8.52%)
 	Contrat Binance Est. APY : 12.9% durée de 60 jours  
-		Solde au bout d'une année : 1129.0 ONE
+		Solde au bout d'une année : 1129.0 ONE (rendement 12.9%)
 	Contrat Binance Est. APY : 20.51% durée de 90 jours  
-		Solde au bout d'une année : 1205.1 ONE
+		Solde au bout d'une année : 1205.1 ONE (rendement 20.51%)
+
+II) Stratégie Trading conversion vers stable coin
+
+  1) Bot de trading achat -10% vente +10% journalier par rapport à valeur d'ouverture du jour de mise en service 
+
+	Mise en sevice le 2021-11-21
+		Solde au bout de 6 jours 1222.0 ONE (rendement 22.22%)
+	Mise en sevice le 2021-11-15
+		Solde au bout de 12 jours 986.0 ONE (rendement -1.37%)
+	Mise en sevice le 2021-09-15
+		Solde au bout de 73 jours 616.0 ONE (rendement -38.39%)
+	Mise en sevice le 2020-11-15
+		Solde au bout de 365 jours 23.0 ONE (rendement -97.67%)
+
+(Note : fonctionne mal sur la duree car les cours s'envolent et le bot ne peut plus acheter)
