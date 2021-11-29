@@ -63,13 +63,13 @@ def botAchatVenteSurHistorique(dateInitiale, prctAchat, prctVente, prctCommissio
                 #print("Prix haut : ", round(float(each_row[2]), 3), "Prix Bas : ", 
                 #    round(float(each_row[3]),3),"Prix achat : ", round(prixInitial, 3))
                 if (float(each_row[3]) < (1 - prctAchat) * prixInitial) and soldeUsd > 0:
-                    soldeOne = soldeUsd / ((1 - prctAchat) * prixInitial)
+                    soldeOne = (soldeUsd / ((1 - prctAchat) * prixInitial))*(1-prctCommission)
                     soldeUsd = 0
                     #print("Ordre achat : ", (1 - prctAchat) * prixInitial)
                     #print("Solde One : ", soldeOne, "solde Usd :" , soldeUsd)                 
                 # Si maximum journée < +y% du prix initial on vent le One
                 if (float(each_row[2]) > (1 + prctVente) * prixInitial) and soldeOne > 0:
-                    soldeUsd = soldeOne * (1 + prctVente) * prixInitial
+                    soldeUsd = (soldeOne * (1 + prctVente) * prixInitial)*(1-prctCommission)
                     soldeOne = 0
                     #print("Ordre vente : ", (1 + prctAchat) * prixInitial)
                     #print("Solde One : ", soldeOne, "solde Usd :" , soldeUsd)             
@@ -107,19 +107,19 @@ def rapportStaking(t):
 def rapportDummyTrading(t):
     t.write("\n  1) Bot de trading achat -10% vente +10% journalier par rapport à valeur d'ouverture du jour de mise en service \n")
     t.write("\n\tMise en sevice le 2021-11-21")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-21", 0.1, 0.1, 0)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-21", 0.1, 0.1, 0.02)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
     t.write("\n\tMise en sevice le 2021-11-15")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-15", 0.1, 0.1, 0)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-15", 0.1, 0.1, 0.02)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
     t.write("\n\tMise en sevice le 2021-09-15")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-09-15", 0.1, 0.1, 0)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-09-15", 0.1, 0.1, 0.02)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
     t.write("\n\tMise en sevice le 2020-11-15")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2020-11-15", 0.1, 0.1, 0)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2020-11-15", 0.1, 0.1, 0.02)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
     t.write("\n\n(Note : fonctionne mal sur la duree car les cours s'envolent et le bot ne peut plus acheter)")
