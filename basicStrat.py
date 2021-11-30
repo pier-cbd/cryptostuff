@@ -8,10 +8,11 @@ montantInitiale = 1000
 nbJourAnnee = 365
 # [Est. APY, jours] !! Deux derniers jamais disponibles !!
 binanceStaking = [[0.0852, 30], [0.129, 60], [0.2051, 90]]
+bianceFees = 0.005
 
 ##      Calcul de staking annuel
 #
-# \param recompensePrct (int) recompense en % proposé par la plateforme
+# \param recompensePrct (int) recompense en % proposée par la plateforme
 # \param dureeContrat (int) duree du contrat en jours
 # \param reStakeRecPrct (int) depot en stake de la récompense en %
 # \return (int) summary
@@ -43,13 +44,21 @@ def totalAnnuelViaStaking(recompensePrct, dureeContrat, reStakeRecPrct):
 
     return round(soldeFinContrat, 2)
 
-
+##      Bot basique achat -10%, vente +10% par rapport à une valeur statique
+#
+# \param dateInitiale (string) date de mise en service du bot
+# \param prctAchat (int) seuil d'achat en % chute du cours par rapport à valeur init
+# \param prctVente (int) seuil de vente en % envolée du cours par rapport à valeur init
+# \param prctCommission (int) commission achat/vente en % prélevée par la plateforme
+# \return soldeFinal (int) solde en ONE à la fin de la simulation
+# \return nombreDeJours (int) nombre de jours de fonctionnement du bot
+#
 def botAchatVenteSurHistorique(dateInitiale, prctAchat, prctVente, prctCommission):
     flagDeclanchement = False
     nombreDeJours = 0
     soldeOne = montantInitiale
     soldeUsd = 0
-    gainFinal = 0
+    soldeFinal = 0
     with open('data_harmony_messari.csv', 'r') as file:
         reader = csv.reader(file)
         for each_row in reader:
@@ -73,11 +82,14 @@ def botAchatVenteSurHistorique(dateInitiale, prctAchat, prctVente, prctCommissio
                     soldeOne = 0
                     #print("Ordre vente : ", (1 + prctAchat) * prixInitial)
                     #print("Solde One : ", soldeOne, "solde Usd :" , soldeUsd)             
-                gainFinal = soldeOne + (soldeUsd / float(each_row[4]))
-                #print("gain : ", gainFinal)
-    return gainFinal,nombreDeJours
+                soldeFinal = soldeOne + (soldeUsd / float(each_row[4]))
+                #print("gain : ", soldeFinal)
+    return soldeFinal,nombreDeJours
 
 
+#
+##      Génération du rapport.txt
+#
 def rapportStaking(t):
     t.write("\n  1) 100% de staking des recompenses entre contrats\n")
     for i in range(3):
@@ -107,22 +119,22 @@ def rapportStaking(t):
 def rapportDummyTrading(t):
     t.write("\n  1) Bot de trading achat -10% vente +10% journalier par rapport à valeur d'ouverture du jour de mise en service \n")
     t.write("\n\tMise en sevice le 2021-11-21")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-21", 0.1, 0.1, 0.02)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-21", 0.1, 0.1, bianceFees)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
     t.write("\n\tMise en sevice le 2021-11-15")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-15", 0.1, 0.1, 0.02)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-11-15", 0.1, 0.1, bianceFees)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
     t.write("\n\tMise en sevice le 2021-09-15")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-09-15", 0.1, 0.1, 0.02)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2021-09-15", 0.1, 0.1, bianceFees)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
     t.write("\n\tMise en sevice le 2020-11-15")
-    soldeFinale,nbJours = botAchatVenteSurHistorique("2020-11-15", 0.1, 0.1, 0.02)
+    soldeFinale,nbJours = botAchatVenteSurHistorique("2020-11-15", 0.1, 0.1, bianceFees)
     t.write("\n\t\tSolde au bout de " + str(nbJours) + " jours " + str(round(soldeFinale, 0))  + " ONE (rendement " + 
             str(round(((soldeFinale - montantInitiale) / montantInitiale) * 100, 2)) + "%)")
-    t.write("\n\n(Note : fonctionne mal sur la duree car les cours s'envolent et le bot ne peut plus acheter)")
+    t.write("\n\t(Note : fonctionne mal sur la duree car les cours s'envolent et le bot ne peut plus acheter)")
 
 def genereRapport():
     with open("rapport.txt", 'r+') as f:
@@ -137,7 +149,6 @@ def genereRapport():
 def main():
     genereRapport()
     print("Rapport genere")
-    
 
 if __name__ == "__main__":
     main()

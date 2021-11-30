@@ -35,12 +35,11 @@ II) Stratégie Trading conversion vers stable coin
   1) Bot de trading achat -10% vente +10% journalier par rapport à valeur d'ouverture du jour de mise en service 
 
 	Mise en sevice le 2021-11-21
-		Solde au bout de 6 jours 1222.0 ONE (rendement 22.22%)
+		Solde au bout de 6 jours 1210.0 ONE (rendement 21.0%)
 	Mise en sevice le 2021-11-15
-		Solde au bout de 12 jours 986.0 ONE (rendement -1.37%)
+		Solde au bout de 12 jours 981.0 ONE (rendement -1.86%)
 	Mise en sevice le 2021-09-15
-		Solde au bout de 73 jours 616.0 ONE (rendement -38.39%)
+		Solde au bout de 73 jours 613.0 ONE (rendement -38.7%)
 	Mise en sevice le 2020-11-15
-		Solde au bout de 365 jours 23.0 ONE (rendement -97.67%)
-
-(Note : fonctionne mal sur la duree car les cours s'envolent et le bot ne peut plus acheter)
+		Solde au bout de 365 jours 23.0 ONE (rendement -97.71%)
+	(Note : fonctionne mal sur la duree car les cours s'envolent et le bot ne peut plus acheter)
