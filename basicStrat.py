@@ -86,6 +86,54 @@ def botAchatVenteSurHistorique(dateInitiale, prctAchat, prctVente, prctCommissio
                 #print("gain : ", soldeFinal)
     return soldeFinal,nombreDeJours
 
+##      Bot basique achat -10%, vente +10% par rapport à une valeur myenne des x dernies jours
+#
+# \param dateInitiale (string) date de mise en service du bot
+# \param prctAchat (int) seuil d'achat en % chute du cours par rapport à valeur init
+# \param prctVente (int) seuil de vente en % envolée du cours par rapport à valeur init
+# \param prctCommission (int) commission achat/vente en % prélevée par la plateforme
+# \param moyenneJours (int) nombre jours précédent 
+# \return soldeFinal (int) solde en ONE à la fin de la simulation
+# \return nombreDeJours (int) nombre de jours de fonctionnement du bot
+#
+def botMoyenneur(dateInitiale, prctAchat, prctVente, prctCommission, moyenneJours):
+    flagDeclanchement = False
+    nombreDeJours = 0
+    soldeOne = montantInitiale
+    soldeUsd = 0
+    soldeFinal = 0
+    with open('data_harmony_messari.csv', 'r') as file:
+        reader = csv.reader(file)
+        # Calcul du moyenne dans une liste
+        for each_row in reader:
+            bite = 1
+            
+
+        for each_row in reader:
+            if each_row[0] == dateInitiale:
+                flagDeclanchement = True
+                prixInitial = float(each_row[4]) # Prix initial valeur d'ouverture du jour 1 en $
+                #print("Solde One : ", soldeOne, " Solde Usd :" , soldeUsd)
+            if flagDeclanchement == True and nombreDeJours < 365:
+                nombreDeJours += 1
+                # Si minimum journée < -x% du prix initial on achete du One
+                #print("Prix haut : ", round(float(each_row[2]), 3), "Prix Bas : ", 
+                #    round(float(each_row[3]),3),"Prix achat : ", round(prixInitial, 3))
+                if (float(each_row[3]) < (1 - prctAchat) * prixInitial) and soldeUsd > 0:
+                    soldeOne = (soldeUsd / ((1 - prctAchat) * prixInitial))*(1-prctCommission)
+                    soldeUsd = 0
+                    #print("Ordre achat : ", (1 - prctAchat) * prixInitial)
+                    #print("Solde One : ", soldeOne, "solde Usd :" , soldeUsd)                 
+                # Si maximum journée < +y% du prix initial on vent le One
+                if (float(each_row[2]) > (1 + prctVente) * prixInitial) and soldeOne > 0:
+                    soldeUsd = (soldeOne * (1 + prctVente) * prixInitial)*(1-prctCommission)
+                    soldeOne = 0
+                    #print("Ordre vente : ", (1 + prctAchat) * prixInitial)
+                    #print("Solde One : ", soldeOne, "solde Usd :" , soldeUsd)             
+                soldeFinal = soldeOne + (soldeUsd / float(each_row[4]))
+                #print("gain : ", soldeFinal)
+    return soldeFinal,nombreDeJours
+
 
 #
 ##      Génération du rapport.txt
